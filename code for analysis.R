@@ -107,6 +107,7 @@ OA1$replicate <- sample(c("OA1"), size = ncol(OA1), replace = TRUE)
 OA2$replicate <- sample(c("OA2"), size = ncol(OA2), replace = TRUE)
 OA3$replicate <- sample(c("OA3"), size = ncol(OA3), replace = TRUE)
 OA4$replicate <- sample(c("OA4"), size = ncol(OA4), replace = TRUE)
+
 class(OA1)
 
 list <-c(normal1,normal2,normal3,OA1,OA2,OA3,OA4)
@@ -131,6 +132,7 @@ names(new.cluster.ids) <- levels(immune.combined)
 immune.combined <- RenameIdents(immune.combined, new.cluster.ids)
 
 DefaultAssay(immune.combined) <- "integrated"
+immune.combined <- subset(immune.combined, subset = nCount_RNA  < 15000 & percent.mt < 5)
 immune.combined <- ScaleData(immune.combined, verbose = FALSE)
 immune.combined <- RunPCA(immune.combined, npcs = 30, verbose = FALSE)
 ElbowPlot(immune.combined)
