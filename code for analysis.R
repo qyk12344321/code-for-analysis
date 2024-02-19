@@ -123,6 +123,7 @@ immune.anchors <- FindIntegrationAnchors(object.list = list, anchor.features = f
 # this command creates an 'integrated' data assay
 DefaultAssay(immune.combined) <- "RNA"
 immune.combined <- IntegrateData(anchorset = immune.anchors)
+immune.combined <- subset(immune.combined, subset = nCount_RNA < 15000 & percent.mt < 5)
 saveRDS(immune.combined,file ="all_normalizednormal.rds")
 
 
